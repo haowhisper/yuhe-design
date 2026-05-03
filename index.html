@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>嶼合 YUHE — 空間設計</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #F5F2EC;
+    --warm-white: #FAF8F4;
+    --stone: #C8C2B4;
+    --ink: #2C2820;
+    --ink-light: #5C5650;
+    --ink-muted: #9A9490;
+    --accent: #7A6E60;
+    --yuhe: #4A5E52;
+    --yujian: #5E4A3A;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--stone);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300;
+    letter-spacing: 0.18em; color: var(--ink); text-decoration: none;
+  }
+  .logo span {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem; font-weight: 300;
+    color: var(--ink-light); margin-left: 0.6rem; letter-spacing: 0.1em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.2em;
+    color: var(--ink-light); text-decoration: none;
+    text-transform: uppercase; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    padding: 8rem 4rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-tag {
+    font-size: 0.7rem; letter-spacing: 0.35em;
+    color: var(--ink-muted); text-transform: uppercase; margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem); font-weight: 300;
+    line-height: 1.1; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--ink);
+  }
+  .hero-title-jp {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem; font-weight: 300;
+    color: var(--ink-muted); letter-spacing: 0.3em; margin-bottom: 2.5rem;
+  }
+  .hero-desc {
+    font-size: 0.88rem; color: var(--ink-light); line-height: 2;
+    max-width: 360px; margin-bottom: 3rem;
+    border-left: 1px solid var(--stone); padding-left: 1.25rem;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-size: 0.78rem; letter-spacing: 0.2em;
+    color: var(--yuhe); text-decoration: none; text-transform: uppercase;
+    border-bottom: 0.5px solid var(--yuhe); padding-bottom: 0.25rem;
+    width: fit-content; transition: gap 0.3s;
+  }
+  .hero-cta:hover { gap: 1.25rem; }
+  .hero-right {
+    display: grid; grid-template-rows: 1fr 1fr;
+    gap: 1px; background-color: var(--stone);
+  }
+  .hero-img-block { overflow: hidden; min-height: 250px; position: relative; }
+  .hero-img-block img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease; display: block;
+  }
+  .hero-img-block:hover img { transform: scale(1.04); }
+
+  section { padding: 7rem 4rem; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem; color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 300;
+    letter-spacing: 0.08em; color: var(--ink);
+  }
+  .section-title-sub {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.8rem; color: var(--ink-muted);
+    letter-spacing: 0.2em; margin-left: 0.5rem;
+  }
+  .section-line { flex: 1; height: 0.5px; background: var(--stone); margin-left: 1rem; }
+
+  .works { background: var(--warm-white); }
+  .works-filter { display: flex; gap: 0.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .filter-btn {
+    font-size: 0.72rem; letter-spacing: 0.18em;
+    color: var(--ink-muted); background: none;
+    border: 0.5px solid var(--stone); padding: 0.4rem 1rem;
+    cursor: pointer; text-transform: uppercase; transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    color: var(--warm-white); background: var(--ink); border-color: var(--ink);
+  }
+  .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .work-card { cursor: pointer; }
+  .work-img { aspect-ratio: 4/3; overflow: hidden; margin-bottom: 1rem; position: relative; }
+  .work-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease; display: block;
+  }
+  .work-card:hover .work-img img { transform: scale(1.05); }
+  .work-badge {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    font-size: 0.62rem; letter-spacing: 0.15em;
+    padding: 0.2rem 0.5rem; text-transform: uppercase; z-index: 2;
+  }
+  .badge-yuhe { background: var(--yuhe); color: #F5F2EC; }
+  .badge-yujian { background: var(--yujian); color: #F5F2EC; }
+  .work-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem; color: var(--ink-muted); letter-spacing: 0.1em; margin-bottom: 0.3rem;
+  }
+  .work-title { font-size: 0.88rem; color: var(--ink); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .work-meta { font-size: 0.72rem; color: var(--ink-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .about { background: var(--sand); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem; align-items: start; }
+  .about-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem; font-weight: 300; line-height: 1.2; margin-bottom: 0.4rem;
+  }
+  .about-name-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.85rem; color: var(--ink-muted); letter-spacing: 0.25em; margin-bottom: 2rem;
+  }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .tag {
+    font-size: 0.68rem; letter-spacing: 0.15em;
+    color: var(--accent); border: 0.5px solid var(--stone);
+    padding: 0.3rem 0.75rem; text-transform: uppercase;
+  }
+  .about-brands { margin-top: 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .brand-item { padding: 1.25rem 1.5rem; border-left: 2px solid var(--stone); }
+  .brand-item.yuhe { border-color: var(--yuhe); }
+  .brand-item.yujian { border-color: var(--yujian); }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 300; letter-spacing: 0.1em; margin-bottom: 0.25rem;
+  }
+  .brand-name.yuhe { color: var(--yuhe); }
+  .brand-name.yujian { color: var(--yujian); }
+  .brand-desc { font-size: 0.78rem; color: var(--ink-muted); letter-spacing: 0.1em; }
+  .about-body { font-size: 0.88rem; color: var(--ink-light); line-height: 2.2; }
+
+  .contact { background: var(--sand); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: start; }
+  .contact-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300;
+    line-height: 1.4; letter-spacing: 0.04em; color: var(--ink); margin-bottom: 2rem;
+  }
+  .contact-sub { font-size: 0.84rem; color: var(--ink-light); line-height: 2; margin-bottom: 2.5rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.82rem; color: var(--ink-light);
+    text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--ink); }
+  .contact-link-label {
+    font-size: 0.65rem; letter-spacing: 0.2em;
+    color: var(--ink-muted); text-transform: uppercase; min-width: 60px;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--ink-muted); text-transform: uppercase; }
+  .form-input, .form-textarea {
+    background: var(--warm-white); border: 0.5px solid var(--stone);
+    padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif; font-weight: 300;
+    outline: none; transition: border-color 0.2s; resize: none; width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { min-height: 120px; }
+  .form-submit {
+    background: var(--ink); color: var(--warm-white); border: none;
+    padding: 0.85rem 2rem; font-size: 0.75rem;
+    letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif; transition: background 0.2s; align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--accent); }
+
+  footer {
+    padding: 2rem 4rem; border-top: 0.5px solid var(--stone);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 300; letter-spacing: 0.15em; color: var(--ink-light);
+  }
+  .footer-copy { font-size: 0.72rem; color: var(--ink-muted); letter-spacing: 0.1em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero-title { animation-delay: 0.25s; }
+  .hero-title-jp { animation-delay: 0.35s; }
+  .hero-desc { animation-delay: 0.45s; }
+  .hero-cta { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">YUHE <span>嶼合</span></a>
+  <ul class="nav-links">
+    <li><a href="#works">作品</a></li>
+    <li><a href="#about">關於</a></li>
+    <li><a href="#contact">聯絡</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Spatial Design Studio</p>
+    <h1 class="hero-title">Designing<br><em>Space</em><br>& Story</h1>
+    <p class="hero-title-jp">空間と物語を設計する</p>
+    <p class="hero-desc">嶼合致力於展場設計與空間企劃，以細節與材質構築品牌與人的對話。</p>
+    <a href="#works" class="hero-cta">查看作品 →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-block">
+      <!-- 替換成你的圖片路徑，例如：images/hero-1.jpg -->
+      <img src="images/hero-1.jpg" alt="展場設計作品">
+    </div>
+    <div class="hero-img-block">
+      <img src="images/hero-2.jpg" alt="空間設計作品">
+    </div>
+  </div>
+</section>
+
+<section class="works" id="works">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Works <span class="section-title-sub">作品集</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="works-filter">
+    <button class="filter-btn active">全部</button>
+    <button class="filter-btn">嶼合 — 商業展場</button>
+    <button class="filter-btn">嶼間 — 生活空間</button>
+  </div>
+  <div class="works-grid">
+    <div class="work-card">
+      <div class="work-img">
+        <!-- 替換成你的作品圖片，例如：images/work-01.jpg -->
+        <img src="images/work-01.jpg" alt="WinWay 展場設計">
+        <span class="work-badge badge-yuhe">嶼合</span>
+      </div>
+      <p class="work-num">001</p>
+      <p class="work-title">WinWay Technology 展場設計</p>
+      <p class="work-meta">Exhibition · 2024</p>
+    </div>
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-02.jpg" alt="科技品牌展覽攤位規劃">
+        <span class="work-badge badge-yuhe">嶼合</span>
+      </div>
+      <p class="work-num">002</p>
+      <p class="work-title">科技品牌展覽攤位規劃</p>
+      <p class="work-meta">Exhibition · 2024</p>
+    </div>
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-03.jpg" alt="南部住宅室內設計">
+        <span class="work-badge badge-yujian">嶼間</span>
+      </div>
+      <p class="work-num">003</p>
+      <p class="work-title">南部住宅室內設計</p>
+      <p class="work-meta">Residential · 2023</p>
+    </div>
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-04.jpg" alt="企業辦公空間環境設計">
+        <span class="work-badge badge-yuhe">嶼合</span>
+      </div>
+      <p class="work-num">004</p>
+      <p class="work-title">企業辦公空間環境設計</p>
+      <p class="work-meta">Office · 2023</p>
+    </div>
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-05.jpg" alt="中醫診所空間概念提案">
+        <span class="work-badge badge-yujian">嶼間</span>
+      </div>
+      <p class="work-num">005</p>
+      <p class="work-title">中醫診所空間概念提案</p>
+      <p class="work-meta">Medical Interior · 2023</p>
+    </div>
+    <div class="work-card">
+      <div class="work-img">
+        <img src="images/work-06.jpg" alt="國際博覽會品牌攤位設計">
+        <span class="work-badge badge-yuhe">嶼合</span>
+      </div>
+      <p class="work-num">006</p>
+      <p class="work-title">國際博覽會品牌攤位設計</p>
+      <p class="work-meta">Exhibition · 2022</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">About <span class="section-title-sub">關於</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div>
+      <h3 class="about-name">宋浩騰<br><em style="font-size:1.6rem; color: var(--ink-light);">Hao</em></h3>
+      <p class="about-name-zh">空間設計師 · 高雄</p>
+      <div class="about-tags">
+        <span class="tag">展場設計</span>
+        <span class="tag">室內設計</span>
+        <span class="tag">3D Rendering</span>
+        <span class="tag">V-Ray</span>
+        <span class="tag">3ds Max</span>
+      </div>
+      <div class="about-brands">
+        <div class="brand-item yuhe">
+          <p class="brand-name yuhe">YUHE 嶼合</p>
+          <p class="brand-desc">展場 · 辦公室 · 零售商業空間</p>
+        </div>
+        <div class="brand-item yujian">
+          <p class="brand-name yujian">YUJIAN 嶼間</p>
+          <p class="brand-desc">住宅 · 診所 · 概念生活空間</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-body">
+      <p style="margin-bottom: 1.5rem;">我是宋浩騰，一位專注於展場設計與室內空間的自由設計師，現居高雄。從事設計工作多年，擅長以精準的空間語言詮釋品牌個性，協助業主在展覽現場、商業場域或生活空間中，建立屬於自己的視覺主張。</p>
+      <p style="margin-bottom: 1.5rem;">主力工具為 3ds Max + V-Ray，能夠在設計初期就產出接近竣工水準的高擬真渲染圖，讓溝通更有效率、決策更有依據。從平面配置到材質選定，每個環節都以細節為設計誠意的體現。</p>
+      <p style="margin-bottom: 1.5rem;">旗下設有兩個設計方向：<strong style="font-weight:400; color: var(--yuhe);">嶼合</strong>專注商業展覽與辦公空間；<strong style="font-weight:400; color: var(--yujian);">嶼間</strong>則深入住宅與生活型態提案，兩者同樣以「讓空間說話」為核心信念。</p>
+      <p style="color: var(--ink-muted); font-size: 0.82rem; line-height: 2.2;">目前接受展場設計、室內設計顧問及 3D 視覺化委託，歡迎洽詢合作可能。</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Contact <span class="section-title-sub">聯絡</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro">讓我們談談<br>你的空間需求</p>
+      <p class="contact-sub">無論是展場規劃、室內設計或 3D 視覺化，歡迎來信詢問合作可能。</p>
+      <div class="contact-links">
+        <a href="mailto:createhaodesign@gmail.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span>createhaodesign@gmail.com</span>
+        </a>
+        <a href="https://www.behance.net/createhaodesign" class="contact-link" target="_blank">
+          <span class="contact-link-label">Behance</span>
+          <span>behance.net/createhaodesign</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-label">LINE</span>
+          <span>haowhisper</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">姓名 / Name</label>
+        <input type="text" class="form-input" placeholder="您的姓名">
+      </div>
+      <div class="form-group">
+        <label class="form-label">聯絡方式 / Contact</label>
+        <input type="text" class="form-input" placeholder="Email 或 LINE ID">
+      </div>
+      <div class="form-group">
+        <label class="form-label">案件描述 / Project</label>
+        <textarea class="form-textarea" placeholder="簡述您的空間需求或合作想法"></textarea>
+      </div>
+      <button class="form-submit">送出詢問 →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">YUHE 嶼合</span>
+  <span class="footer-copy">© 2025 宋浩騰 · 空間設計</span>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
